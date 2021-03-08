@@ -3,7 +3,7 @@
 echo "Creating get-started-aws Docker volume ... "
 docker volume create get-started-aws
 echo "Setting up environment ..."
-IMAGE="${1:-atlas-aws}"
+IMAGE="${1:-mongodb-developer/get-started-aws-cfn}"
 REGION="${2:-us-east-1}"
 docker run --rm \
     -v $HOME/.aws:/root/.aws \

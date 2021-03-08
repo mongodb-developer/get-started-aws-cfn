@@ -17,7 +17,7 @@ then
 fi
 
 QUICKSTART_NAME=${4:-"get-started-aws-quickstart"}
-IMAGE="${5:-atlas-aws}"
+IMAGE="${5:-mongodb-developer/get-started-aws-cfn}"
 echo "Executing ... "
 echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
 

@@ -9,7 +9,7 @@ This Get-Started project will deploy the MongoDB Atlas AWS Quick Start which pro
 
 The project also contains an AWS SAM CLI(https://aws.amazon.com/serverless/sam/) template project which allows one to deploy a working sample Python webapp connected to MongoDB Atlas completely through automation.
 
-After you `get-started.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
+After you `get-setup.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
 
 * 1 Project
 * 1 M10 MongoDB Atlas Cluster
