@@ -6,7 +6,7 @@ It is important to note that you should not try to `git clone` this project but 
 
 ## Usage
 
-Generate a new SAM based Serverless App: `sam init --location gh:aws-samples/cookiecutter-aws-sam-python`
+Generate a new SAM based Serverless App: `sam init --location gh:mongodb-developer/get-started-aws-cfn/cookiecutter-aws-sam-python-mongodb-atlas`
 
 You'll be prompted a few questions to help this cookiecutter template to scaffold this project and after its completed you should see a new folder at your current path with the name of the project you gave as input.
 
