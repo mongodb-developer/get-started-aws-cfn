@@ -1,12 +1,13 @@
-# Get-Started AWS
+# Get-Started AWS CloudFormation
 
 Repository to help getting started with using MongoDB Atlas with AWS CloudFormation.
 
 ## Information
 
-This Get-Started project uses the [MongoDB Atlas AWS Quick Start](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation Resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources).
 
-The project will deploy the MongoDB Atlas AWS Quick Start which provisions complete MongoDB Atlas deployments through CloudFormation using official MongoDB Atlas AWS CloudFormation Resource Types.
+This Get-Started project will deploy the MongoDB Atlas AWS Quick Start which provisions complete MongoDB Atlas deployments through CloudFormation using official MongoDB Atlas AWS CloudFormation Resource Types. The project provides a quick and simple way to use the [MongoDB Atlas AWS Quick Start](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation Resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources).
+
+The project also contains an AWS SAM CLI(https://aws.amazon.com/serverless/sam/) template project which allows one to deploy a working sample Python webapp connected to MongoDB Atlas completely through automation.
 
 After you `get-started.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
 
@@ -19,6 +20,8 @@ After you `get-started.sh` with this Get-Started project you will have a complet
 
 The outputs include a lambda ready IAM Role and connection string to your new MongoDB Atlas Cluster.
 
+*NOTE* This project integrates with the AWS and MongoDB cloud which can incur cost when deploying the project! (TODO - make nicer)
+
 ## Pre-requisites 
 
 ### AWS Tooling
@@ -26,59 +29,49 @@ The outputs include a lambda ready IAM Role and connection string to your new Mo
 In order to use this Get-Started project you need to install the AWS cli on your machine.
 You can download and install from: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 
+An AWS Account with appropriate IAM permissions. TODO- need list minimal permissions.
+
 ### Docker 
 
 Have Docker running on your machine. You can download and install from: https://docs.docker.com/install/
+
+### `mongocli`
+
+The best way to manage your MongoDB Cloud apikeys today is `mongocli`(https://github.com/mongodb/mongocli). This project can leverage your `mongocli` configuration.
 
 ### MongoDB Atlas
 
 In order to execute the code example, you need to have: 
 
 * Create an organizational-level [MongoDB Atlas Programmatic API](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Project Creator` permissions.
+
 * The aws cli setup and configured on your development machine. 
 
 ##  Execution Steps 
 
-1. Optional - not required unless needing to refesh with latest resource source code.
-   Build Docker image with a tag name. Within the top level directory execute: 
-  ```
-  docker build . -t atlas-aws
-  ```
-   This will build a docker image with a tag name `atlas-aws`. 
-
-   *NOTE* Currently the source repositories are private which will prevent a clean build without proper Github ssh access. A pre-build image has been upload for convience until these repos become public: `jmimick/atlas-aws`. 
-
-2. Execute the helper shell setup script. This will package and deploy the MongoDB Atlas CloudFormation resources into your current default AWS region. 
-  ```
-  ./get-setup.sh
-  ```
-  
-  Until can build your own:
+1. Execute the helper shell setup script. This will package and deploy the MongoDB Atlas CloudFormation resources into your current default AWS region. 
 
   ```
-  ./get-setup.sh jmimick/atlas-aws
+  ./get-setup.sh mongodb-developer/get-started-aws-cfn
   ```
 
   Changing the region to deploy into is support by passing your default AWS cli config into the get-started Docker container. So you can run the deploy in another region with the following commands:
   ```
   aws configure set region eu-west-3
-  ./get-setup.sh jmimick/atlas-aws
+  ./get-setup.sh mongodb-developer/get-started-aws-cfn
   ```
   Note this step can take up to 45 minutes to run.
   Run this step once in each region you wish to use.
 
-3. Execute the helper shell starter script by providing the Quick Start name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
+22. Execute the helper shell starter script by providing the Quick Start name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
 
   ```
-  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID <GETSTARTED_NAME> <DOCKER_IMAGE>
+  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID <GETSTARTED_NAME> mongodb-developer/get-started-aws-cfn
   ```
 
-  The `GETSTARTED_NAME` parameter is optional and defaults to `get-started-aws-quickstart`.
-
-  Note - until source repos are public use this specfic image (change GETSTARTED_NAME to your own choosing):
 
   ```
-  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID get-started-aws-quickstart jmimick/atlas-aws
+  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID get-started-aws-quickstart mongodb-developer/get-started-aws-cfn
   ```
 
   Once successful, you should be able to access your new deployment through the AWS console, the Atlas console or even the clis.
@@ -123,7 +116,18 @@ TODO - add links to repos, example stacks, using this with lambda
 This project is part of the MongoDB Get-Started code examples. Please see [get-started-readme](https://github.com/mongodb-developer/get-started-readme) for more information. 
 
 
-## Notes
+## Developer notes Notes
+
+Not required unless needing to refesh with latest resource source code.
+This will build a fresh image of the resources for stable distribution.
+
+   Build Docker image with a tag name. Within the top level directory execute: 
+  ```
+  docker build . -t mongodb-developer/get-started-aws-cfn
+  ```
+   This will build a docker image with a tag name `get-started-aws-cfn`. 
+
+   *NOTE* Currently the source repositories are private which will prevent a clean build without proper Github ssh access. A pre-build image has been upload for convience until these repos become public: `mongodb-developer/get-started-aws-cfn`. 
 
 To build the container - need this:
 ```
