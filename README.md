@@ -58,21 +58,30 @@ Once created, run `mongocli configure` and enter the API Key just created.
 
 ##  Execution Steps 
 
-1. Execute the helper shell setup script. This will package and deploy the MongoDB Atlas CloudFormation resources into your current default AWS region. 
+### Deploy MongoDB Atlas CFN Resource into your AWS Region
+
+1. Execute the helper shell setup script to complete this step. This will package and deploy the MongoDB Atlas CloudFormation resources into your current default AWS region: 
 
   ```
-  ./get-setup.sh mongodb-developer/get-started-aws-cfn
+  ./get-setup.sh 
   ```
 
-  Changing the region to deploy into is support by passing your default AWS cli config into the get-started Docker container. So you can run the deploy in another region with the following commands:
+  You can optionally pass in the region or change your local `aws` cli configuration. 
+
+  ```
+  ./get-setup.sh us-west-2
+  ```
+  or
   ```
   aws configure set region eu-west-3
-  ./get-setup.sh mongodb-developer/get-started-aws-cfn
+  ./get-setup.sh
   ```
   Note this step can take up to 45 minutes to run.
   Run this step once in each region you wish to use.
 
-22. Execute the helper shell starter script by providing the Quick Start name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
+  Once complete, you will find a set of CFN Stacks for the MongoDB Atlas Resources.
+
+2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
 
 If you have installed `mongocli` then run:
 
