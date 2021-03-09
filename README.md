@@ -45,7 +45,16 @@ In order to execute the code example, you need to have:
 
 * Create an organizational-level [MongoDB Atlas Programmatic API](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Project Creator` permissions.
 
-* The aws cli setup and configured on your development machine. 
+Once created, run `mongocli configure` and enter the API Key just created.
+
+### Pre-req Checklist
+
+| Tool | Link | Completed | Notes |
+| ---- | ---- | --------- | --- |
+| awscli | https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html | - [ ] | |
+| docker | https://docs.docker.com/install/ | - [ ] | |
+| mongocli | https://github.com/mongodb/mongocli | - [ ] | |
+
 
 ##  Execution Steps 
 

@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     curl \
     zip \
+    jq \
     golang \
     python3 python3-pip && \
     apt-get clean && \
@@ -22,6 +23,15 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     unzip awscliv2.zip && ./aws/install
 
 RUN pip3 install cloudformation-cli-go-plugin
+
+# Install mongocli
+RUN MCLI_TAG=$(curl -sL --header "Accept: application/json" https://github.com/mongodb/mongocli/releases/latest | jq -r '.["tag_name"]') && \
+    MCLI_VERSION=$(echo $MCLI_TAG | cut -dv -f2) && \
+    MCLI_DEB="mongocli_${MCLI_VERSION}_linux_x86_64.deb" && \
+    curl -OL https://github.com/mongodb/mongocli/releases/download/${MCLI_TAG}/${MCLI_DEB} && \
+    echo "About to install mongocli from: ${MCLI_DEB}" && \
+    dpkg -i ${MCLI_DEB}
+
 
 ENV WORKSPACE /workspace
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts

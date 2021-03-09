@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
-PUBLIC_KEY=${1}
-PRIVATE_KEY=${2}
-ORG_ID=${3}
+
+if [ $# -lt 2 ]; then
+  if [ -x "$(command -v mongocli)" ]; then
+    echo 'No apikey arguments detected and mongocli installed, will use default mongocli profile.'
+    MCLI_ARGS=$(./export-mongocli-config.py default spaces)
+    PUBLIC_KEY=$(echo ${MCLI_ARGS} | cut -d' ' -f1)
+    PRIVATE_KEY=$(echo ${MCLI_ARGS} | cut -d' ' -f2)
+    ORG_ID=$(echo ${MCLI_ARGS} | cut -d' ' -f3)
+    QUICKSTART_NAME=${1:-"get-started-aws-quickstart"}
+  fi
+else
+  PUBLIC_KEY=${1}
+  PRIVATE_KEY=${2}
+  ORG_ID=${3}
+  QUICKSTART_NAME=${4:-"get-started-aws-quickstart"}
+fi
 
 if [ -z ${PUBLIC_KEY} ]
 then
@@ -16,8 +29,6 @@ then
     read -p "MongoDB Atlas Org Id (Required): " ORG_ID
 fi
 
-QUICKSTART_NAME=${4:-"get-started-aws-quickstart"}
-IMAGE="${5:-mongodb-developer/get-started-aws-cfn}"
 echo "Executing ... "
 echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
 
@@ -25,7 +36,7 @@ docker run -it --rm \
     -v $HOME/.aws:/root/.aws \
     -v get-started-aws:/cache \
     -v "$(pwd)":/workspace \
-    -w /workspace/atlas-aws "${IMAGE}" \
+    -w /workspace/atlas-aws "mongodb-developer/get-started-aws-cfn" \
      "cd /quickstart-mongodb-atlas/; \
      ls -l .; \
      cat ./scripts/launch-new-quickstart.sh; \
