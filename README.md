@@ -74,13 +74,16 @@ Once created, run `mongocli configure` and enter the API Key just created.
 
 22. Execute the helper shell starter script by providing the Quick Start name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
 
-  ```
-  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID <GETSTARTED_NAME> mongodb-developer/get-started-aws-cfn
-  ```
-
+If you have installed `mongocli` then run:
 
   ```
-  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID get-started-aws-quickstart mongodb-developer/get-started-aws-cfn
+  ./get-started.sh <GETSTARTED_NAME> 
+  ```
+
+Or you can explicitly set the apikey or get prompted:
+
+  ```
+  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID get-started-aws-quickstart 
   ```
 
   Once successful, you should be able to access your new deployment through the AWS console, the Atlas console or even the clis.
