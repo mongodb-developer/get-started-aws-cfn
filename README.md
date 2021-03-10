@@ -155,3 +155,19 @@ To build the container - need this:
 export DOCKER_BUILDKIT=1
 docker build --ssh github=$HOME/.ssh/id_rsa -t atlas-aws .
 ```
+
+This docker image is currently built internally and published to:
+
+
+public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn:latest
+
+## Troubleshoot
+
+### Check access to docker image
+
+Try this command to check if you can access the Docker image required for this project.
+
+```bash
+docker run -it public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn "head -1 /quickstart-mongodb-atlas-resources/README.md"
+# MongoDB Atlas AWS CloudFormation Resources & Quickstart
+```

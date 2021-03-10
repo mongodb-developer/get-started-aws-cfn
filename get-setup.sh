@@ -4,11 +4,12 @@ echo "Creating get-started-aws Docker volume ... "
 docker volume create get-started-aws
 REGION="${1:-us-east-1}"
 echo "Setting up environment REGION=${REGION} ..."
+IMAGE="public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn:latest"
 docker run --rm \
     -v $HOME/.aws:/root/.aws \
     -v get-started-aws:/cache \
     -v "$(pwd)":/workspace \
-    -w /workspace/atlas-aws "mongodb-developer/get-started-aws-cfn" \
+    -w /workspace/atlas-aws "${IMAGE}" \
      "ls -l /; \
      ls -l /quickstart-mongodb-atlas-resources/; \
      cd /quickstart-mongodb-atlas-resources/cfn-resources/; \

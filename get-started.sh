@@ -32,11 +32,12 @@ fi
 echo "Executing ... "
 echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
 
+IMAGE="public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn:latest"
 docker run -it --rm \
     -v $HOME/.aws:/root/.aws \
     -v get-started-aws:/cache \
     -v "$(pwd)":/workspace \
-    -w /workspace/atlas-aws "mongodb-developer/get-started-aws-cfn" \
+    -w /workspace/atlas-aws "${IMAGE}" \
      "cd /quickstart-mongodb-atlas/; \
      ls -l .; \
      cat ./scripts/launch-new-quickstart.sh; \
