@@ -7,8 +7,6 @@ Repository to help getting started with using MongoDB Atlas with AWS CloudFormat
 
 This Get-Started project will deploy the MongoDB Atlas AWS Quick Start which provisions complete MongoDB Atlas deployments through CloudFormation using official MongoDB Atlas AWS CloudFormation Resource Types. The project provides a quick and simple way to use the [MongoDB Atlas AWS Quick Start](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation Resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources).
 
-The project also contains an AWS SAM CLI(https://aws.amazon.com/serverless/sam/) template project which allows one to deploy a working sample Python webapp connected to MongoDB Atlas completely through automation.
-
 After you `get-started.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
 
 * 1 Project
