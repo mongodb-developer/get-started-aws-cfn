@@ -9,7 +9,7 @@ This Get-Started project will deploy the MongoDB Atlas AWS Quick Start which pro
 
 The project also contains an AWS SAM CLI(https://aws.amazon.com/serverless/sam/) template project which allows one to deploy a working sample Python webapp connected to MongoDB Atlas completely through automation.
 
-After you `get-setup.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
+After you `get-started.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
 
 * 1 Project
 * 1 M10 MongoDB Atlas Cluster
@@ -47,18 +47,11 @@ In order to execute the code example, you need to have:
 
 Once created, run `mongocli configure` and enter the API Key just created.
 
-### Pre-req Checklist
-
-| Tool | Link | Completed | Notes |
-| ---- | ---- | --------- | --- |
-| awscli | https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html | - [ ] | |
-| docker | https://docs.docker.com/install/ | - [ ] | |
-| mongocli | https://github.com/mongodb/mongocli | - [ ] | |
-
-
 ##  Execution Steps 
 
 ### Deploy MongoDB Atlas CFN Resource into your AWS Region
+
+#### `get-setup.sh`
 
 1. Execute the helper shell setup script to complete this step. This will package and deploy the MongoDB Atlas CloudFormation resources into your current default AWS region: 
 
@@ -81,6 +74,8 @@ Once created, run `mongocli configure` and enter the API Key just created.
 
   Once complete, you will find a set of CFN Stacks for the MongoDB Atlas Resources.
 
+#### `get-started.sh`
+
 2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
 
 If you have installed `mongocli` then run:
@@ -92,7 +87,7 @@ If you have installed `mongocli` then run:
 Or you can explicitly set the apikey or get prompted:
 
   ```
-  ./get-started.sh PUBLIC_KEY PRIVATE_KEY ORG_ID get-started-aws-quickstart 
+  ./get-started.sh <PUBLIC_KEY> <PRIVATE_KEY> <ORG_ID> <GETSTARTED_NAME> 
   ```
 
   Once successful, you should be able to access your new deployment through the AWS console, the Atlas console or even the clis.
