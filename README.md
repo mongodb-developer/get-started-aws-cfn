@@ -164,3 +164,20 @@ Try this command to check if you can access the Docker image required for this p
 docker run -it public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn "head -1 /quickstart-mongodb-atlas-resources/README.md"
 # MongoDB Atlas AWS CloudFormation Resources & Quickstart
 ```
+
+## AWS IAM Permissions 
+
+In order to run this project you will need a certain set of AWS permissions.
+We've included a sample minimal-example policy which you can assume safely and use with this project:
+
+```
+aws cloudformation update-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy.yaml --stack-name get-started-aws-cfn-role
+```
+
+You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the docker environment to run this project, like this (note you need to change the --role-arn to the arn create in the step above).
+
+```
+source <(aws sts assume-role --role-arn arn:aws:iam::466197078724:role/MongoDB-Atlas-CloudFormation-Get-Started --role-session-name "get-started"  | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
+```
+
+(Reference: [get-token.md](https://gist.github.com/brianredbeard/035ee1419bc38a0e2d854fb828d585d7))

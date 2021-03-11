@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Sample role minimal IAM needed for MongoDB Atlas CFN
+Resources:
+  RegisterTypeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "MongoDB-Atlas-CloudFormation-Get-Started"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+          - Effect: Allow
+            Principal: 
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      Policies:
+        - PolicyName: ResourceTypePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "cloudformation:*"
+                  - "iam:GetRole"
+                  - "iam:PassRole"
+                  - "iam:CreateRole"
+                  - "iam:CreatePolicy"
+                  - "iam:ListPolicyVersions"
+                  - "iam:DeletePolicyVersion"
+                  - "iam:CreatePolicyVersion"
+                  - "iam:AttachRolePolicy"
+                  - "iam:PutRolePolicy"
+                  - "iam:DeleteRolePolicy"
+                  - "ssm:GetParameter"
+                  - "ssm:PutParameter"
+                  - "sts:GetCallerIdentity"
+                  - "s3:*"
+                  - "s3:GetObject"
+                  - "s3:CreateBucket"
+                  - "s3:ListBucket"
+                  - "kms:GenerateDataKey"
+                  - "kms:CreateKey"
+                  - "kms:Create*"
+                  - "kms:Describe*"
+                  - "kms:Enable*"
+                  - "kms:List*"
+                  - "kms:Put*"
+                  - "kms:Update*"
+                  - "kms:Revoke*"
+                  - "kms:Disable*"
+                  - "kms:Get*"
+                  - "kms:Delete*"
+                  - "kms:ScheduleKeyDeletion"
+                  - "kms:CancelKeyDeletion"
+                  - "kms:Encrypt"
+                  - "kms:Decrypt"
+                  - "kms:ReEncrypt"
+                  - "kms:GenerateDataKey*"
+                  - "kms:DescribeKey"
+                Resource: "*"

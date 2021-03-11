@@ -2,6 +2,10 @@
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG AWS_DEFAULT_REGION
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_SESSION_TOKEN
 RUN apt-get update && apt-get install -y \
     make \
     git \
@@ -47,7 +51,9 @@ RUN --mount=type=ssh,id=github git clone git@github.com:aws-quickstart/quickstar
 
 # Pre build everything
 RUN cd /quickstart-mongodb-atlas-resources/cfn-resources/ && BUILD_ONLY=true ./cfn-submit-helper.sh
+# copy the build logs over to different name to help troubleshoot deployment logs
+RUN cd /quickstart-mongodb-atlas-resources/cfn-resources/ && ls **/rpdk.log | xargs -I {} mv {} {}.build
 
-
+COPY get-setup-aws-cfn.sh /
 
 ENTRYPOINT ["/bin/bash", "-c"]  
