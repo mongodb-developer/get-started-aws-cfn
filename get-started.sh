@@ -29,15 +29,19 @@ then
     read -p "MongoDB Atlas Org Id (Required): " ORG_ID
 fi
 
-echo "Executing ... "
-echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
+IMAGE_REPO=${IMAGE_REPO:-public.ecr.aws/u1r4t8v5/}
+IMAGE=${IMAGE:-mongodb-developer/get-started-aws-cfn:latest}
+IMG="${IMAGE_REPO}${IMAAGE}"
 
-IMAGE="public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn:latest"
+echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
+echo "Running Docker image: ${IMG}"
+echo "Executing ... "
+
 docker run -it --rm \
     -v $HOME/.aws:/root/.aws \
     -v get-started-aws:/cache \
     -v "$(pwd)":/workspace \
-    -w /workspace/atlas-aws "${IMAGE}" \
+    -w /workspace/atlas-aws "${IMG}" \
      "cd /quickstart-mongodb-atlas/; \
      ls -l .; \
      cat ./scripts/launch-new-quickstart.sh; \
