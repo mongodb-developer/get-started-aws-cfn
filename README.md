@@ -27,7 +27,8 @@ The outputs include a lambda ready IAM Role and connection string to your new Mo
 In order to use this Get-Started project you need to install the AWS cli on your machine.
 You can download and install from: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 
-An AWS Account with appropriate IAM permissions. TODO- need list minimal permissions.
+An AWS Account with appropriate CloudFormation and IAM permissions. 
+Please see the section [AWS IAM Permissions](#aws-iam-permissions) for details.
 
 ### Docker 
 
@@ -168,7 +169,10 @@ docker run -it public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn "he
 ## AWS IAM Permissions 
 
 In order to run this project you will need a certain set of AWS permissions.
-We've included a sample minimal-example policy which you can assume safely and use with this project:
+We've included a sample minimal-example [policy.yaml](./policy.yaml) which you can assume safely and use with this project.
+
+First, create a new role with the supplied policy. Here's how to do that via CloudFormation:
+
 
 ```
 aws cloudformation update-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy.yaml --stack-name get-started-aws-cfn-role
@@ -177,7 +181,13 @@ aws cloudformation update-stack --capabilities CAPABILITY_NAMED_IAM --template-b
 You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the docker environment to run this project, like this (note you need to change the --role-arn to the arn create in the step above).
 
 ```
-source <(aws sts assume-role --role-arn arn:aws:iam::466197078724:role/MongoDB-Atlas-CloudFormation-Get-Started --role-session-name "get-started"  | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
+source <(aws sts assume-role --role-arn arn:aws:iam::<YOUR_AWS_ACCOUNT>:role/MongoDB-Atlas-CloudFormation-Get-Started --role-session-name "get-started"  | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
+```
+
+Remember to UNSET your `AWS_*` environment variables to "un-assume" the role.
+
+```
+source <(env | awk -F= '/AWS/ {print "unset ", $1}'
 ```
 
 (Reference: [get-token.md](https://gist.github.com/brianredbeard/035ee1419bc38a0e2d854fb828d585d7))
