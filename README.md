@@ -105,6 +105,25 @@ echo "Found stack:${GETSTARTED_NAME} with ClusterSrvAddress: ${MDB}"
 
 _Note_ This example requires the `jq` tool. See: https://stedolan.github.io/jq/download/
 
+### Testing AWS IAM connection
+
+There is a helper script [test-iam-mongo-connection.sh](./test-iam-mongo-connection.sh) available to script passing AWS IAM session credentials into the mongo shell. To use this, pass the STACK_NAME as a parameter:
+
+```bash
+./test-iam-mongo-connection.sh NewRoleBased-1
+Found stack:NewRoleBased-1 with ClusterSrvAddress: mongodb+srv://cluster-1.5hmwe.mongodb.net
+STACK_ROLE={
+    "StackResources": [
+        {
+            "StackName": "NewRoleBased-1",
+...
+MongoDB shell version v4.4.1
+connecting to: mongodb://cluster-1-shard-00-00.5hmwe.mongodb.net:27017,cluster-1-shard-00-01.5hmwe.mongodb.net:27017,cluster-1-shard-00-02.5hmwe.mongodb.net:27017/admin?authMechanism=MONGODB-AWS&authmechanismproperties=AWS_SESSION_TOKEN%3AIQoJb3JpZ2luX2VjEMv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDQ4mV7RtfYCLrQwBg
+...
+PRIMARY>
+ ```
+
+
 ## Tear Down 
 
 How to remove the environment setup (deleting traces of this get-started project):
