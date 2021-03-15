@@ -31,7 +31,7 @@ fi
 
 IMAGE_REPO=${IMAGE_REPO:-public.ecr.aws/u1r4t8v5/}
 IMAGE=${IMAGE:-mongodb-developer/get-started-aws-cfn:latest}
-IMG="${IMAGE_REPO}${IMAAGE}"
+IMG="${IMAGE_REPO}${IMAGE}"
 
 echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
 echo "Running Docker image: ${IMG}"
@@ -41,6 +41,10 @@ docker run -it --rm \
     -v $HOME/.aws:/root/.aws \
     -v get-started-aws:/cache \
     -v "$(pwd)":/workspace \
+    -e AWS_DEFAULT_REGION \
+    -e AWS_ACCESS_KEY_ID \
+    -e AWS_SECRET_ACCESS_KEY \
+    -e AWS_SESSION_TOKEN \
     -w /workspace/atlas-aws "${IMG}" \
      "cd /quickstart-mongodb-atlas/; \
      ls -l .; \

@@ -63,4 +63,7 @@ Resources:
                   - "kms:ReEncrypt"
                   - "kms:GenerateDataKey*"
                   - "kms:DescribeKey"
+                  # below here are added to run get-started.sh
+                  - "secretsmanager:CreateSecret"
+                  - "secretsmanager:TagResource"
                 Resource: "*"
