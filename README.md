@@ -75,7 +75,7 @@ Once created, run `mongocli config` and enter the Atlas API Key just created.
 
 #### `get-started.sh`
 
-2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
+2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS IAM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
 
 If you have installed `mongocli` then run:
 
