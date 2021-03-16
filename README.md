@@ -1,54 +1,53 @@
 # Get-Started AWS CloudFormation
 
-Repository to help getting started with using MongoDB Atlas with AWS CloudFormation.
+Repository to help getting started with using MongoDB Atlas with AWS CloudFormation (CFN).
 
 ## Information
 
 
-This Get-Started project will deploy the MongoDB Atlas AWS Quick Start which provisions complete MongoDB Atlas deployments through CloudFormation using official MongoDB Atlas AWS CloudFormation Resource Types. The project provides a quick and simple way to use the [MongoDB Atlas AWS Quick Start](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation Resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources).
+This Get-Started project provides a quick and simple way to use the [AWS Quick Start for MongoDB Atlas](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources) to provision a complete MongoDB Atlas deployment. This includes:
 
-After following the instructions of this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
+* 1 MongoDB Atlas project
+* 1 MongoDB Atlas M10 cluster
+* 1 AWS IAM role
+* 1 MongoDB Atlas database user (Type: AWS IAM role)
+* 1 MongoDB Atlas project IP Access List entry
+* 1 AWS VPC peering connection (optional) [TODO/ need add this option to get-started]
 
-* 1 Project
-* 1 M10 MongoDB Atlas Cluster
-* 1 AWS IAM Role
-* 1 MongoDB Atlas Database User (Type/AWS IAM Role)
-* 1 Project Ip Access List entry
-* VPC Peering (optional) [TODO/ need add this option to get-started]
+The outputs include an AWS Lambda-ready IAM Role and connection string to your MongoDB Atlas cluster.
 
-The outputs include a lambda ready IAM Role and connection string to your new MongoDB Atlas Cluster.
-
-*NOTE* This project integrates with the AWS and MongoDB cloud which can incur cost when deploying the project! (TODO - make nicer)
+*NOTE* This project will create a dedicated cluster on MongoDB Atlas, which will is not free! (TODO - make nicer)
 
 ## Pre-requisites 
 
 ### AWS Tooling
 
-In order to use this Get-Started project you need to install the AWS cli on your machine.
-You can download and install from: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+In order to use this Get-Started project, you need to install the AWS CLI on your machine.
+You can download and install from https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 
-An AWS Account with appropriate CloudFormation and IAM permissions. 
+You will also need an AWS account with appropriate CloudFormation and IAM permissions. 
 Please see the section [AWS IAM Permissions](#aws-iam-permissions) for details.
 
 ### Docker 
 
-Have Docker running on your machine. You can download and install from: https://docs.docker.com/install/
+You will need to have Docker running on your machine. You can download and install Docker from https://docs.docker.com/install/
 
 ### `mongocli`
 
-The best way to manage your MongoDB Cloud apikeys today is via [mongocli](https://github.com/mongodb/mongocli). This project can leverage your `mongocli` configuration.
+The best way to manage your MongoDB Atlas API Keys today is via the [mongocli](https://github.com/mongodb/mongocli). This project can leverage your `mongocli` configuration.
 
 ### MongoDB Atlas
 
-In order to execute the code example, you need to have: 
+In order to execute the code example, you need to: 
 
-* Create an organizational-level [MongoDB Atlas Programmatic API](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Organization Project Creator` permissions.
+* Sign up for a [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register)
+* Create an organization-level [MongoDB Atlas Programmatic API Key](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Organization Project Creator` permissions.
 
-Once created, run `mongocli config` and enter the Atlas API Key just created.
+Once created, run `mongocli config` and enter the Atlas API Key you just created.
 
 ##  Execution Steps 
 
-### Deploy MongoDB Atlas CFN Resource into your AWS Region
+### Deploy MongoDB Atlas CFN Resources into your AWS Region
 
 #### `get-setup.sh`
 
@@ -58,7 +57,7 @@ Once created, run `mongocli config` and enter the Atlas API Key just created.
   ./get-setup.sh 
   ```
 
-  You can optionally pass in the region or change your local `aws` cli configuration. 
+  You can optionally pass in the AWS region or change your local AWS CLI configuration. 
 
   ```
   ./get-setup.sh us-west-2
@@ -71,25 +70,25 @@ Once created, run `mongocli config` and enter the Atlas API Key just created.
   Note this step can take up to 45 minutes to run.
   Run this step once in each region you wish to use.
 
-  Once complete, you will find a set of CFN Stacks for the MongoDB Atlas Resources.
+  Once complete, you will find a set of CFN Stacks for the MongoDB Atlas resources.
 
 #### `get-started.sh`
 
-2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS IAM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
+2. Execute the helper shell starter script, optionally providing a MongoDB Atlas project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS IAM role and cluster connection string information for you applications. Note this step typically takes 7-10 minutes. 
 
-If you have installed `mongocli` then run:
+If you have installed `mongocli`, run:
 
   ```
   ./get-started.sh <GETSTARTED_NAME> 
   ```
 
-Or you can explicitly set the apikey or get prompted:
+Or you can explicitly set the API key or get prompted:
 
   ```
   ./get-started.sh <PUBLIC_KEY> <PRIVATE_KEY> <ORG_ID> <GETSTARTED_NAME> 
   ```
 
-  Once successful, you should be able to access your new deployment through the AWS console, the Atlas console or even the CLIs.
+  Once successful, you should be able to access your new deployment through the AWS console, AWS CLI, MongoDB Atlas console, or `mongocli`.
 
 ## Connecting to your cluster
 
@@ -103,11 +102,11 @@ MDB=$(aws cloudformation list-exports | \
 echo "Found stack:${GETSTARTED_NAME} with ClusterSrvAddress: ${MDB}"
 ```
 
-_Note_ This example requires the `jq` tool. See: https://stedolan.github.io/jq/download/
+_Note_ This example requires the `jq` tool. See https://stedolan.github.io/jq/download/.
 
 ### Testing AWS IAM connection
 
-There is a helper script [test-iam-mongo-connection.sh](./test-iam-mongo-connection.sh) available to script passing AWS IAM session credentials into the mongo shell. To use this, pass the STACK_NAME as a parameter:
+There is a helper script [test-iam-mongo-connection.sh](./test-iam-mongo-connection.sh) available to script passing AWS IAM session credentials into the `mongo` shell. To use this, pass the STACK_NAME as a parameter:
 
 ```bash
 ./test-iam-mongo-connection.sh NewRoleBased-1
@@ -123,18 +122,17 @@ connecting to: mongodb://cluster-1-shard-00-00.5hmwe.mongodb.net:27017,cluster-1
 PRIMARY>
  ```
 
-
 ## Tear Down 
 
-How to remove the environment setup (deleting traces of this get-started project):
+To remove the environment setup (deleting traces of this get-started project):
 
-* Delete the Quick Start stack using the helper script or you can do this in the AWS Web Console or cli yourself.
+* Delete the Quick Start stack from the AWS console or CLI, or by using this helper script:
   ```
   ./teardown.sh <GETSTARTED_NAME>
   ```
 
 * Terminate the `get-started.sh` process if it's running. This is to stop the web service on `localhost:3000`.
-* Delete the CloudFormation stack created, by default this will have the <Quick Start-Name>:
+* Delete the AWS CloudFormation stack created, by default this will have the <Quick Start-Name>:
    ```
    aws cloudformation delete-stack --stack-name <Quick Start-Name>
    ```
@@ -150,7 +148,7 @@ TODO - add links to repos, example stacks, using this with lambda
 This project is part of the MongoDB Get-Started code examples. Please see [get-started-readme](https://github.com/mongodb-developer/get-started-readme) for more information. 
 
 
-## Developer notes Notes
+## Developer Notes
 
 Not required unless needing to refesh with latest resource source code.
 This will build a fresh image of the resources for stable distribution.
@@ -176,7 +174,7 @@ public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn:latest
 
 ## Troubleshoot
 
-### Check access to docker image
+### Check access to Docker image
 
 Try this command to check if you can access the Docker image required for this project.
 
@@ -185,19 +183,19 @@ docker run -it public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn "he
 # MongoDB Atlas AWS CloudFormation Resources & Quickstart
 ```
 
-## AWS IAM Permissions 
+## AWS IAM permissions 
 
 In order to run this project you will need a certain set of AWS permissions.
-We've included a sample minimal-example [policy.yaml](./policy.yaml) which you can assume safely and use with this project.
+We've included a sample minimal example [policy.yaml](./policy.yaml), which you can assume safely and use with this project.
 
-First, create a new role with the supplied policy. Here's how to do that via CloudFormation:
+First, create a new AWS IAM role with the supplied policy. Here's how to do that via AWS CloudFormation:
 
 
 ```
 aws cloudformation update-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy.yaml --stack-name get-started-aws-cfn-role
 ```
 
-You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the docker environment to run this project, like this (note you need to change the --role-arn to the arn create in the step above).
+You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the Docker environment to run this project, like this (note you need to change the --role-arn to the arn create in the step above).
 
 ```
 source <(aws sts assume-role --role-arn arn:aws:iam::<YOUR_AWS_ACCOUNT>:role/MongoDB-Atlas-CloudFormation-Get-Started --role-session-name "get-started"  | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
