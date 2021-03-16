@@ -7,7 +7,7 @@ Repository to help getting started with using MongoDB Atlas with AWS CloudFormat
 
 This Get-Started project will deploy the MongoDB Atlas AWS Quick Start which provisions complete MongoDB Atlas deployments through CloudFormation using official MongoDB Atlas AWS CloudFormation Resource Types. The project provides a quick and simple way to use the [MongoDB Atlas AWS Quick Start](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation Resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources).
 
-After you `get-started.sh` with this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
+After following the instructions of this Get-Started project you will have a complete MongoDB Atlas deployment managed through AWS CloudFormation. This includes:
 
 * 1 Project
 * 1 M10 MongoDB Atlas Cluster
@@ -36,15 +36,15 @@ Have Docker running on your machine. You can download and install from: https://
 
 ### `mongocli`
 
-The best way to manage your MongoDB Cloud apikeys today is `mongocli`(https://github.com/mongodb/mongocli). This project can leverage your `mongocli` configuration.
+The best way to manage your MongoDB Cloud apikeys today is via [mongocli](https://github.com/mongodb/mongocli). This project can leverage your `mongocli` configuration.
 
 ### MongoDB Atlas
 
 In order to execute the code example, you need to have: 
 
-* Create an organizational-level [MongoDB Atlas Programmatic API](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Project Creator` permissions.
+* Create an organizational-level [MongoDB Atlas Programmatic API](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Organization Project Creator` permissions.
 
-Once created, run `mongocli configure` and enter the API Key just created.
+Once created, run `mongocli config` and enter the Atlas API Key just created.
 
 ##  Execution Steps 
 
@@ -75,7 +75,7 @@ Once created, run `mongocli configure` and enter the API Key just created.
 
 #### `get-started.sh`
 
-2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS AIM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
+2. Execute the helper shell starter script, optionally providing a project name. The output from `get-setup.sh` helper script will inform you of the details for your new MongoDB Atlas deployment, including AWS IAM Role and Cluster connection string information for you apps. Note this step takes 7-10 minutes. 
 
 If you have installed `mongocli` then run:
 
@@ -89,7 +89,7 @@ Or you can explicitly set the apikey or get prompted:
   ./get-started.sh <PUBLIC_KEY> <PRIVATE_KEY> <ORG_ID> <GETSTARTED_NAME> 
   ```
 
-  Once successful, you should be able to access your new deployment through the AWS console, the Atlas console or even the clis.
+  Once successful, you should be able to access your new deployment through the AWS console, the Atlas console or even the CLIs.
 
 ## Connecting to your cluster
 
