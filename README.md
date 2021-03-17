@@ -12,11 +12,10 @@ This Get-Started project provides a quick and simple way to use the [AWS Quick S
 * 1 AWS IAM role
 * 1 MongoDB Atlas database user (Type: AWS IAM role)
 * 1 MongoDB Atlas project IP Access List entry
-* 1 AWS VPC peering connection (optional) [TODO/ need add this option to get-started]
 
-The outputs include an AWS Lambda-ready IAM Role and connection string to your MongoDB Atlas cluster.
+The outputs include an AWS Lambda-ready IAM role and connection string to your MongoDB Atlas cluster.
 
-*NOTE* This project will create a dedicated cluster on MongoDB Atlas, which will is not free! (TODO - make nicer)
+*NOTE* Running this project will incur charges on AWS and MongoDB Atlas.
 
 ## Pre-requisites 
 
@@ -41,9 +40,11 @@ The best way to manage your MongoDB Atlas API Keys today is via the [mongocli](h
 In order to execute the code example, you need to: 
 
 * Sign up for a [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register)
-* Create an organization-level [MongoDB Atlas Programmatic API Key](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys). The key needs `Organization Project Creator` permissions.
+* Skip the cluster deployment options
+* Go to Billing and add a credit card to your account
+* Create an organization-level [MongoDB Atlas Programmatic API Key](https://docs.atlas.mongodb.com/configure-api-access#programmatic-api-keys) with an IP Access List entry. The key needs `Organization Project Creator` permissions.
 
-Once created, run `mongocli config` and enter the Atlas API Key you just created.
+Once created, run `mongocli config` and enter the Atlas private API key you just created, along with your Atlas public API key and organization ID.
 
 ##  Execution Steps 
 
@@ -139,10 +140,6 @@ To remove the environment setup (deleting traces of this get-started project):
 * Remove the Docker volumes
 * Remove the Docker image
 
-## Tutorials
-
-TODO - add links to repos, example stacks, using this with lambda
-
 ## About 
 
 This project is part of the MongoDB Get-Started code examples. Please see [get-started-readme](https://github.com/mongodb-developer/get-started-readme) for more information. 
@@ -192,7 +189,7 @@ First, create a new AWS IAM role with the supplied policy. Here's how to do that
 
 
 ```
-aws cloudformation update-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy.yaml --stack-name get-started-aws-cfn-role
+aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy.yaml --stack-name get-started-aws-cfn-role
 ```
 
 You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the Docker environment to run this project, like this (note you need to change the --role-arn to the arn create in the step above).
