@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Sample role minimal IAM needed for MongoDB Atlas CFN
+Resources:
+  RegisterTypeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "MongoDB-Atlas-CloudFormation-User"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+          - Effect: Allow
+            Principal: 
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      Policies:
+        - PolicyName: ResourceTypePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  # below here are added to run get-started.sh
+                  - "cloudformation:CreateStack"
+                  - "cloudformation:DeleteStack"
+                  - "cloudformation:DescribeStackEvents"
+                  - "cloudformation:DescribeStacks"
+                  - "iam:CreateRole"
+                  - "iam:GetRole"
+                  - "secretsmanager:CreateSecret"
+                  - "secretsmanager:DeleteSecret"
+                  - "secretsmanager:TagResource"
+                Resource: "*"

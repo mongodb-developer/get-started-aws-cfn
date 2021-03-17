@@ -4,7 +4,7 @@ Resources:
   RegisterTypeRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: "MongoDB-Atlas-CloudFormation-Get-Started"
+      RoleName: "MongoDB-Atlas-CloudFormation-Installer"
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -26,7 +26,10 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - "cloudformation:*"
+                  - "cloudformation:CreateStack"
+                  - "cloudformation:DeleteStack"
+                  - "cloudformation:DescribeStackEvents"
+                  - "cloudformation:DescribeStacks"
                   - "iam:GetRole"
                   - "iam:PassRole"
                   - "iam:CreateRole"
@@ -40,22 +43,16 @@ Resources:
                   - "ssm:GetParameter"
                   - "ssm:PutParameter"
                   - "sts:GetCallerIdentity"
-                  - "s3:*"
                   - "s3:GetObject"
                   - "s3:CreateBucket"
                   - "s3:ListBucket"
                   - "kms:GenerateDataKey"
                   - "kms:CreateKey"
-                  - "kms:Create*"
                   - "kms:Describe*"
                   - "kms:Enable*"
                   - "kms:List*"
                   - "kms:Put*"
                   - "kms:Update*"
-                  - "kms:Revoke*"
-                  - "kms:Disable*"
-                  - "kms:Get*"
-                  - "kms:Delete*"
                   - "kms:ScheduleKeyDeletion"
                   - "kms:CancelKeyDeletion"
                   - "kms:Encrypt"
@@ -63,7 +60,4 @@ Resources:
                   - "kms:ReEncrypt"
                   - "kms:GenerateDataKey*"
                   - "kms:DescribeKey"
-                  # below here are added to run get-started.sh
-                  - "secretsmanager:CreateSecret"
-                  - "secretsmanager:TagResource"
                 Resource: "*"

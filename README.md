@@ -182,14 +182,21 @@ docker run -it public.ecr.aws/u1r4t8v5/mongodb-developer/get-started-aws-cfn "he
 
 ## AWS IAM permissions 
 
-In order to run this project you will need a certain set of AWS permissions.
-We've included a sample minimal example [policy.yaml](./policy.yaml), which you can assume safely and use with this project.
+This project requires various kinds of AWS permissions. 
 
-First, create a new AWS IAM role with the supplied policy. Here's how to do that via AWS CloudFormation:
+To run the setup step (`[get-setup.sh](./get-setup.sh)`) AWS team account owners should be able to assume the [policy-quickstart-mongodb-atlas-installer.yaml](./policy-quickstart-mongodb-atlas-installer.yaml) sample permission set. This step requires above average permissions.
+
+For the started step (`[get-started.sh](./get-started.sh)`) AWS users should be able to assume the [policy-quickstart-mongodb-atlas-user.yaml](./policy-quickstart-mongodb-atlas-user.yaml) sample permission set. 
+
+We've included a sample minimal examples, which you can assume safely and use with this project.
+
+### Typical deployment plan
+
+Create a new AWS IAM roles with the supplied policies. Here's how to do that via AWS CloudFormation:
 
 
 ```
-aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy.yaml --stack-name get-started-aws-cfn-role
+aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --template-body file://./policy-quickstart-mongodb-atlas-user.yaml --stack-name quickstart-mongodb-atlas-user
 ```
 
 You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the Docker environment to run this project, like this (note you need to change the --role-arn to the arn create in the step above).
