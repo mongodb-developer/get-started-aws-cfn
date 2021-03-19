@@ -229,8 +229,10 @@ source <(env | awk -F= '/AWS/ {print "unset ", $1}'
 
 (Reference: [get-token.md](https://gist.github.com/brianredbeard/035ee1419bc38a0e2d854fb828d585d7))
 
-<sup>[[1]](#qs-repo) Access coming soon: [AWS Quick Start for MongoDB Atlas](https://github.com/aws-quickstart/quickstart-mongodb-atlas)
+<sup>
+<a id="qs-repo">[1]</a> Access coming soon: [AWS Quick Start for MongoDB Atlas](https://github.com/aws-quickstart/quickstart-mongodb-atlas)
 </sup>
 
-<sup>[[2]](#qs-res-repo) Access coming soon: [MongoDB Atlas CloudFormation resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources)
+<sup>
+<a id="qs-res-repo">[2]</a> Access coming soon: [MongoDB Atlas CloudFormation resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources)
 </sup>
