@@ -6,8 +6,7 @@ Repository to help getting started with using MongoDB Atlas with AWS CloudFormat
 
 
 This Get-Started project provides a quick and simple way to use the 
-:construction: *Access coming soon!* :construction:
-~~[AWS Quick Start for MongoDB Atlas](https://github.com/aws-quickstart/quickstart-mongodb-atlas) and the [MongoDB Atlas CloudFormation resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources)~~ to provision a complete MongoDB Atlas deployment. This includes:
+(*Access coming soon!*) AWS Quick Start for MongoDB Atlas[1](#qs-repo) and the MongoDB Atlas CloudFormation resources[2](#qs-res-repo) to provision a complete MongoDB Atlas deployment. This includes:
 
 * 1 MongoDB Atlas project
 * 1 MongoDB Atlas M10 cluster
@@ -229,3 +228,9 @@ source <(env | awk -F= '/AWS/ {print "unset ", $1}'
 ```
 
 (Reference: [get-token.md](https://gist.github.com/brianredbeard/035ee1419bc38a0e2d854fb828d585d7))
+
+<sup>[[1]](#qs-repo) Access coming soon: [AWS Quick Start for MongoDB Atlas](https://github.com/aws-quickstart/quickstart-mongodb-atlas)
+</sup>
+
+<sup>[[2]](#qs-res-repo) Access coming soon: [MongoDB Atlas CloudFormation resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources)
+</sup>
