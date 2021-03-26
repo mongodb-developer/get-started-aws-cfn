@@ -6,7 +6,8 @@
 # $source <(./export-mongocli-config.py)
 #
 import os, sys, toml
-config=f"/home/{os.getenv('USER')}/.config/mongocli.toml"
+homepath=os.path.expanduser("~")
+config="%s/.config/mongocli.toml" % homepath
 t=toml.load(config)
 if len(sys.argv)>1:
     profile = sys.argv[1]
@@ -34,5 +35,3 @@ if export_mode == "parameter-overrides":
     else:
         project_name = "get-started-mongodb-atlas-aws-sam-python"
     print( f"ParameterKey=PublicKey,ParameterValue={d['public_api_key']} ParameterKey=PrivateKey,ParameterValue={d['private_api_key']} ParameterKey=OrgId,ParameterValue={d['org_id']} ParameterKey=ProjectName,ParameterValue={project_name}" )
-
-
