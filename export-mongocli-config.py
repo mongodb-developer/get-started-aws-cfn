@@ -35,3 +35,14 @@ if export_mode == "parameter-overrides":
     else:
         project_name = "get-started-mongodb-atlas-aws-sam-python"
     print( f"ParameterKey=PublicKey,ParameterValue={d['public_api_key']} ParameterKey=PrivateKey,ParameterValue={d['private_api_key']} ParameterKey=OrgId,ParameterValue={d['org_id']} ParameterKey=ProjectName,ParameterValue={project_name}" )
+
+if export_mode == "kubectl-create-secret":
+    if len(sys.argv)>3:
+        secret_name = sys.argv[3]
+    else:
+        secret_name = "get-started-mongodb-atlas-key"
+    print(f"kubectl create secret generic {secret_name} \\")
+    print(f" --from-literal=\"orgId={d['org_id']}\" \\")
+    print(f" --from-literal=\"publicApiKey={d['public_api_key']}\" \\")
+    print(f" --from-literal=\"privateApiKey={d['private_api_key']}\" ")
+
