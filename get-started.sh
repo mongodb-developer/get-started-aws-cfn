@@ -7,13 +7,13 @@ if [ $# -lt 2 ]; then
     PUBLIC_KEY=$(echo ${MCLI_ARGS} | cut -d' ' -f1)
     PRIVATE_KEY=$(echo ${MCLI_ARGS} | cut -d' ' -f2)
     ORG_ID=$(echo ${MCLI_ARGS} | cut -d' ' -f3)
-    QUICKSTART_NAME=${1:-"get-started-aws-quickstart"}
+    STACK_NAME=${1:-"get-started-aws-quickstart"}
   fi
 else
   PUBLIC_KEY=${1}
   PRIVATE_KEY=${2}
   ORG_ID=${3}
-  QUICKSTART_NAME=${4:-"get-started-aws-quickstart"}
+  STACK_NAME=${4:-"get-started-aws-quickstart"}
 fi
 
 if [ -z ${PUBLIC_KEY} ]
@@ -33,7 +33,7 @@ IMAGE_REPO=${IMAGE_REPO:-public.ecr.aws/u1r4t8v5/}
 IMAGE=${IMAGE:-mongodb-developer/get-started-aws-cfn:latest}
 IMG="${IMAGE_REPO}${IMAGE}"
 
-echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
+echo "Launching new quickstart stack name: ${STACK_NAME}"
 echo "Running Docker image: ${IMG}"
 echo "Executing ... "
 
@@ -50,9 +50,9 @@ docker run -it --rm \
      export ATLAS_PUBLIC_KEY=${PUBLIC_KEY}; \
      export ATLAS_PRIVATE_KEY=${PRIVATE_KEY}; \
      export ATLAS_ORG_ID=${ORG_ID}; \
-     export PROJECT_NAME=${QUICKSTART_NAME}; \
-     ./scripts/launch-new-quickstart.sh ${QUICKSTART_NAME}; \
+     export PROJECT_NAME=${STACK_NAME}; \
+     ./scripts/launch-new-quickstart.sh ${STACK_NAME}; \
      echo 'Stack created.';"
 
 echo "Checking stack events from local machine:"
-aws cloudformation describe-stack-events --stack-name ${QUICKSTART_NAME} \
+aws cloudformation describe-stack-events --stack-name ${STACK_NAME} \
