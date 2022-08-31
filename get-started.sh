@@ -2,7 +2,7 @@
 
 if [ $# -lt 2 ]; then
   if [ -x "$(command -v mongocli)" ]; then
-    echo 'No apikey arguments detected and mongocli installed, will use default mongocli profile.'
+    echo 'No API key arguments detected and mongocli installed; will use default mongocli profile.'
     MCLI_ARGS=$(./export-mongocli-config.py default spaces)
     PUBLIC_KEY=$(echo ${MCLI_ARGS} | cut -d' ' -f1)
     PRIVATE_KEY=$(echo ${MCLI_ARGS} | cut -d' ' -f2)
@@ -18,27 +18,29 @@ fi
 
 if [ -z ${PUBLIC_KEY} ]
 then
-    read -p "MongoDB Atlas Public Key (Required): " PUBLIC_KEY
-fi
-if [ -z ${PRIVATE_KEY} ]
-then
-    read -p "MongoDB Atlas Private Key (Required): " PRIVATE_KEY
-fi
-if [ -z ${ORG_ID} ]
-then
-    read -p "MongoDB Atlas Org Id (Required): " ORG_ID
+    read -p "MongoDB Atlas public key (required): " PUBLIC_KEY
 fi
 
-IMAGE_REPO=${IMAGE_REPO:-public.ecr.aws/u1r4t8v5/}
-IMAGE=${IMAGE:-mongodb-developer/get-started-aws-cfn:latest}
+if [ -z ${PRIVATE_KEY} ]
+then
+    read -p "MongoDB Atlas private key (required): " PRIVATE_KEY
+fi
+
+if [ -z ${ORG_ID} ]
+then
+    read -p "MongoDB Atlas organization ID (required): " ORG_ID
+fi
+
+IMAGE_REPO="${IMAGE_REPO:-public.ecr.aws/u1r4t8v5/}"
+IMAGE="${IMAGE:-mongodb-developer/get-started-aws-cfn:latest}"
 IMG="${IMAGE_REPO}${IMAGE}"
 
 echo "Launching new quickstart stack name: ${QUICKSTART_NAME}"
 echo "Running Docker image: ${IMG}"
-echo "Executing ... "
+echo "Executing..."
 
 docker run -it --rm \
-    -v $HOME/.aws:/root/.aws \
+    -v "${HOME}"/.aws:/root/.aws \
     -v get-started-aws:/cache \
     -v "$(pwd)":/workspace \
     -e AWS_DEFAULT_REGION \
@@ -52,7 +54,7 @@ docker run -it --rm \
      export ATLAS_ORG_ID=${ORG_ID}; \
      export PROJECT_NAME=${QUICKSTART_NAME}; \
      ./scripts/launch-new-quickstart.sh ${QUICKSTART_NAME}; \
-     echo 'Stack created.';"
+     echo 'Stack created.'"
 
 echo "Checking stack events from local machine:"
-aws cloudformation describe-stack-events --stack-name ${QUICKSTART_NAME} \
+aws cloudformation describe-stack-events --stack-name "${QUICKSTART_NAME}" \
